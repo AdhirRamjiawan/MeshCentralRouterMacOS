@@ -121,12 +121,46 @@ struct AppMapDialogView: View {
                 }
             }.padding()
             HStack() {
-                Button("OK", action: { devicesView!.showAddMapModal = false; devicesView!.showAddRelayMapModal = false; mc!.addPortMap(name:name, nodeid:nodeid, usage:usage, localPort:Int(localPortStr) ?? 0, remoteIp: (relay == true) ? remoteIp : nil ,remotePort:Int(remotePortStr) ?? 0) }).disabled(
+                Button("OK", action: btnOK_Click).disabled(
                     !(((Int(localPortStr) ?? -1) >= 0) && ((Int(localPortStr) ?? -1) <= 65535) && ((Int(remotePortStr) ?? -1) > 0) && ((Int(remotePortStr) ?? -1) <= 65535) && (meshid != "") && (nodeid != "") && ((relay == false) || (remoteIp != "")))
                 )
                 Button("Cancel", action: { devicesView!.showAddMapModal = false; devicesView!.showAddRelayMapModal = false; })
             }.padding([.horizontal, .bottom])
         }.background(Color("MainBackground")).foregroundColor(Color("MainTextColor")).shadow(radius: 20)
+    }
+    
+    func btnOK_Click() {
+        devicesView!.showAddMapModal = false;
+        devicesView!.showAddRelayMapModal = false;
+        mc!.addPortMap(name:name, nodeid:nodeid,
+                       usage:usage, localPort:Int(localPortStr) ?? 0,
+                       remoteIp: (relay == true) ? remoteIp : nil ,
+                       remotePort:Int(remotePortStr) ?? 0);
+        
+        let mapping = Mapping(localPort: localPortStr, remoteIp: remoteIp, remotePort: remotePortStr, name: name, usage: usage, nodeId: nodeid);
+        let mappingCollection: Array<Mapping> = [mapping];
+        let encoder = JSONEncoder();
+        var jsonData: Data;
+        var jsonString: String!;
+        
+        do {
+            jsonData = try encoder.encode(mapping);
+            jsonString = String(data: jsonData, encoding: String.Encoding.utf8);
+        } catch {};
+
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                            in: .userDomainMask).first {
+            let pathWithFilename = documentDirectory.appendingPathComponent("mesh_central_mapping.json")
+            do {
+                if (jsonString != nil) {
+                    try jsonString.write(to: pathWithFilename,
+                                         atomically: true,
+                                         encoding: .utf8);
+                }
+            } catch {
+                // Handle error
+            }
+        }
     }
 }
 
@@ -135,3 +169,5 @@ struct AddMapDialogView_Previews: PreviewProvider {
         AppMapDialogView(devicesView:nil, device:nil, relay:true)
     }
 }
+
+

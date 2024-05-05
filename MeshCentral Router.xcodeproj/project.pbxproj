@@ -23,6 +23,7 @@
 		049E92BF25975C5D0057281A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 049E92BD25975C5D0057281A /* README.md */; };
 		04CEE6BA25956ACB00D95D6B /* SshUserDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEE6B925956ACB00D95D6B /* SshUserDialogView.swift */; };
 		04CEE6BD25959CCA00D95D6B /* HelpDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEE6BC25959CCA00D95D6B /* HelpDialogView.swift */; };
+		32C6717A2BD94B02004EADF1 /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C671792BD94B02004EADF1 /* Mapping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		049E92BD25975C5D0057281A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		04CEE6B925956ACB00D95D6B /* SshUserDialogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshUserDialogView.swift; sourceTree = "<group>"; };
 		04CEE6BC25959CCA00D95D6B /* HelpDialogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpDialogView.swift; sourceTree = "<group>"; };
+		32C671792BD94B02004EADF1 /* Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				0461964B25954140003B75AA /* Info.plist */,
 				0461964C25954140003B75AA /* MeshCentral_Router.entitlements */,
 				0461964525954140003B75AA /* Preview Content */,
+				32C671792BD94B02004EADF1 /* Mapping.swift */,
 			);
 			path = "MeshCentral Router";
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32C6717A2BD94B02004EADF1 /* Mapping.swift in Sources */,
 				0461966225954319003B75AA /* SettingsDialogView.swift in Sources */,
 				0461966125954319003B75AA /* LoginView.swift in Sources */,
 				046196422595413E003B75AA /* ContentView.swift in Sources */,

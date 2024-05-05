@@ -432,6 +432,43 @@ func performLogin(parent:ContentView?, view:LoginView) {
     mc!.onStateChange = onMeshCentralStateChanged
     mc!.on2faCookie = on2faCookie
     mc!.onDevicesChanged = onDevicesChanged
+    
+    if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                        in: .userDomainMask).first {
+        let pathWithFilename = documentDirectory.appendingPathComponent("mesh_central_mapping.json")
+        do {
+            let jsonString = try String(contentsOf: pathWithFilename, encoding: .utf8)
+            
+            do {
+                let decoder = JSONDecoder();
+                
+                if (jsonString != nil) {
+                    let mappings : [String: Array<Mapping>] = try decoder.decode([String: Array<Mapping>].self, from: jsonString.data(using: .utf8)!);
+                    
+                    for (k, v) in mappings {
+                        for map in v {
+                            mc!.addPortMap(name: map.name, nodeid: map.nodeId,
+                                           usage: map.usage, localPort: Int(map.localPort) ?? 0,
+                                           remoteIp:  map.remoteIp,
+                                           remotePort: Int(map.remotePort) ?? 0);
+                        }
+                    }
+                    /*
+                     mc!.addPortMap(name:name, nodeid:nodeid,
+                                    usage:usage, localPort:Int(localPortStr) ?? 0,
+                                    remoteIp: (relay == true) ? remoteIp : nil ,
+                                    remotePort:Int(remotePortStr) ?? 0);
+                     */
+                }
+            } catch {
+                
+                print("Unexpected error: \(error).")
+            }
+        } catch  {
+            print("Unexpected error: \(error).")
+            // Handle error
+        }
+    }
 }
 
 // If we get a 2FA cookie from the server, save it
