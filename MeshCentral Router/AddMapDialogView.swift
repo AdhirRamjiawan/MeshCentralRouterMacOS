@@ -144,7 +144,7 @@ struct AppMapDialogView: View {
         var jsonString: String!;
         
         do {
-            jsonData = try encoder.encode(mapping);
+            jsonData = try encoder.encode(mappingCollection);
             jsonString = String(data: jsonData, encoding: String.Encoding.utf8);
         } catch {};
 
